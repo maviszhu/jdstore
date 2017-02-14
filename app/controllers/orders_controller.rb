@@ -28,6 +28,8 @@ class OrdersController < ApplicationController
     @order = Order.find_by_token(params[:id])
     @order.set_payment_with!("alipay")
     @order.pay!
+    current_cart.clean!
+    OrderMailer.notify_order_placed(@order).deliver!
     redirect_to :back, notice: "已成功使用支付宝完成支付。"
   end
 
@@ -35,6 +37,8 @@ class OrdersController < ApplicationController
     @order = Order.find_by_token(params[:id])
     @order.set_payment_with!("wechat")
     @order.pay!
+    current_cart.clean!
+    OrderMailer.notify_order_placed(@order).deliver!
     redirect_to :back, notice: "已成功使用微信完成支付。"
   end
 
