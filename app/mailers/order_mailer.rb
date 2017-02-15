@@ -6,4 +6,26 @@ class OrderMailer < ApplicationMailer
     mail(to: @user.email, subject: "[JDstore] 感谢您完成本次的下单，以下是您这次的购物明细 #{order.token}")
   end
 
+  def apply_cancel(order)
+    @order = order
+    @user = order.user
+    @product_lists = order.product_lists
+    mail(to: 'admin@test.com', subject: "[JDstore] 用户#{@user.email}申请取消订单Order. #{order.id}")
+  end
+
+  def notify_cancel(order)
+    @order = order
+    @user = order.user
+    @product_lists = order.product_lists
+    mail(to: @user.email, subject: "[JDstore] 您的订单Order. #{order.token}已取消")
+  end
+
+  def notify_ship(order)
+    @order = order
+    @user = order.user
+    @product_lists = order.product_lists
+    mail(to: @user.email, subject: "[JDstore] 您的订单Order. #{order.token}已发货")
+  end
+
+
 end

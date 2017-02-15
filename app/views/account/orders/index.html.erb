@@ -2,7 +2,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <%= order.created_at.to_s(:long) %>&nbsp;&nbsp;
-    <span>订单编号:<%= order.token %></span>
+    <span>订单编号:<%= link_to(order.token, account_order_path(order.token)) %></span>
     <span class="pull-right">订单总计:<%= order.total %>RMB</span>
   </div>
   <table class="table">

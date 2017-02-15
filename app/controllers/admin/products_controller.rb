@@ -38,11 +38,7 @@ def product_params
   params.require(:product).permit(:title, :description, :quantity, :price, :image)
 end
 
-def admin_required
-  if !current_user.admin?
-    redirect_to root_path, alert: "您没有管理员权限！"
-  end
-end
+
 
 
 

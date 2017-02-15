@@ -42,6 +42,13 @@ class OrdersController < ApplicationController
     redirect_to :back, notice: "已成功使用微信完成支付。"
   end
 
+  def apply_to_cancel
+    @order = Order.find_by_token(params[:id])
+    OrderMailer.apply_cancel(@order).deliver!
+    flash[:notice] = "已提交申请"
+    redirect_to :back
+  end
+
   private
   def order_params
     params.require(:order).permit(:total, :user_id, :billing_name, :billing_address, :shipping_name, :shipping_address)
